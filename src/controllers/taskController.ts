@@ -5,10 +5,18 @@ import { isValidObjectId } from "../lib/isValidObjectId";
 
 //@desc Get all Tasks
 //@route GET /api/contacts
-//@access Public
+//@access Private
 const getTasks: RequestHandler = asyncHandler(
   async (req: Request, res: Response) => {
-    const tasks = await Task.find();
+    const id = req.params.id;
+
+    if (!id) {
+      res.status(400);
+      throw new Error("Id not provided");
+    }
+
+    // tasks for that user
+    const tasks = await Task.find({ userId: id });
 
     if (!tasks) {
       res.status(404);
@@ -19,6 +27,9 @@ const getTasks: RequestHandler = asyncHandler(
   }
 );
 
+//@desc Get Task
+//@route GET /api/contacts
+//@access Private
 const getTask: RequestHandler = asyncHandler(
   async (req: Request, res: Response) => {
     const id = req.params.id;
@@ -34,16 +45,20 @@ const getTask: RequestHandler = asyncHandler(
   }
 );
 
+//@desc Create Task
+//@route POST /api/contacts
+//@access Private
 const createTask: RequestHandler = asyncHandler(
   async (req: Request, res: Response) => {
-    const { title, content, completed } = req.body;
+    const { title, content, completed, user_id } = req.body;
 
-    if (!title || !content || typeof completed !== "boolean") {
+    if (!title || !content || !user_id || typeof completed !== "boolean") {
       res.status(400);
       throw new Error("All fields are required");
     }
 
     const task = await Task.create({
+      userId: user_id,
       title,
       content,
       completed,
@@ -51,10 +66,16 @@ const createTask: RequestHandler = asyncHandler(
 
     if (task) {
       res.json({ status: 201, message: "Task created successfully", task });
+    } else {
+      res.status(400);
+      throw new Error("Invalid task data");
     }
   }
 );
 
+//@desc Update Task
+//@route PUT /api/contacts
+//@access Private
 const updateTask: RequestHandler = asyncHandler(
   async (req: Request, res: Response) => {
     const id = req.params.id;
@@ -81,6 +102,9 @@ const updateTask: RequestHandler = asyncHandler(
   }
 );
 
+//@desc Update Task
+//@route PUT /api/contacts
+//@access Private
 const deleteTask: RequestHandler = asyncHandler(
   async (req: Request, res: Response) => {
     const id = req.params.id;

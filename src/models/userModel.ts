@@ -25,7 +25,6 @@ const userSchema: Schema<User> = new Schema<User>(
   { timestamps: true }
 );
 
-//Create a mongoose model
 const User = mongoose.model<User>("User", userSchema);
 
 export default User;

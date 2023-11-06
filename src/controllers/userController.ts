@@ -90,7 +90,7 @@ const loginUser: RequestHandler = asyncHandler(
         },
         JWT_SECRET,
         {
-          expiresIn: "25m",
+          expiresIn: "24h",
         }
       );
       res.json({ status: 200, message: "Logged in", accessToken: token });

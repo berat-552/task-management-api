@@ -9,7 +9,7 @@ import {
 
 const router = express.Router();
 
-router.route("/").get(getTasks);
+router.route("/:id").get(getTasks);
 
 router.route("/:id").get(getTask);
 
