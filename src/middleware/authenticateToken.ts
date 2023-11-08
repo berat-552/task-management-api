@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from "express";
+import { Response, NextFunction } from "express";
 import asyncHandler from "express-async-handler";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { ExtendedRequest } from "../types/ExtendedRequest";

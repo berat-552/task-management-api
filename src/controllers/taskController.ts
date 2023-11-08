@@ -50,18 +50,14 @@ const getTask: RequestHandler = asyncHandler(
 //@access Private
 const createTask: RequestHandler = asyncHandler(
   async (req: Request, res: Response) => {
-    const { title, content, completed, user_id } = req.body;
-
-    if (!title || !content || !user_id || typeof completed !== "boolean") {
-      res.status(400);
-      throw new Error("All fields are required");
-    }
+    const { title, content, completed, user_id, dueDate } = req.body;
 
     const task = await Task.create({
       userId: user_id,
       title,
       content,
       completed,
+      dueDate,
     });
 
     if (task) {
@@ -74,13 +70,13 @@ const createTask: RequestHandler = asyncHandler(
 );
 
 //@desc Update Task
-//@route PUT /api/contacts
+//@route PUT /api/contacts/:id
 //@access Private
 const updateTask: RequestHandler = asyncHandler(
   async (req: Request, res: Response) => {
     const id = req.params.id;
 
-    const { title, content, completed } = req.body;
+    const { title, content, completed, dueDate } = req.body;
 
     const taskExists = isValidObjectId(id) ? await Task.findById(id) : null;
 
@@ -95,6 +91,7 @@ const updateTask: RequestHandler = asyncHandler(
         title,
         content,
         completed,
+        dueDate,
       },
       { new: true } //returns the updated document
     );
@@ -102,8 +99,8 @@ const updateTask: RequestHandler = asyncHandler(
   }
 );
 
-//@desc Update Task
-//@route PUT /api/contacts
+//@desc Delete Task
+//@route DELETE /api/contacts/:id
 //@access Private
 const deleteTask: RequestHandler = asyncHandler(
   async (req: Request, res: Response) => {
