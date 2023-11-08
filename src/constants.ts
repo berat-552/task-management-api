@@ -6,4 +6,21 @@ const constants = {
   FORBIDDEN: 403,
 };
 
-export default constants;
+// fields on create
+const requiredFieldsCreate: string[] = [
+  "user_id",
+  "title",
+  "content",
+  "completed",
+  "dueDate",
+];
+
+// fields on update
+const requiredFieldsUpdate: string[] = [
+  "title",
+  "content",
+  "completed",
+  "dueDate",
+];
+
+export { constants, requiredFieldsCreate, requiredFieldsUpdate };
