@@ -22,5 +22,16 @@ const requiredFieldsUpdate: string[] = [
   "completed",
   "dueDate",
 ];
+// fields on login
+const requiredFieldsLogin: string[] = ["email", "password"];
 
-export { constants, requiredFieldsCreate, requiredFieldsUpdate };
+// fields on register
+const requiredFieldsRegister: string[] = ["username", "email", "password"];
+
+export {
+  constants,
+  requiredFieldsCreate,
+  requiredFieldsUpdate,
+  requiredFieldsLogin,
+  requiredFieldsRegister,
+};

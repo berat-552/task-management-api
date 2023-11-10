@@ -52,6 +52,13 @@ const createTask: RequestHandler = asyncHandler(
   async (req: Request, res: Response) => {
     const { title, content, completed, user_id, dueDate } = req.body;
 
+    if (typeof completed !== "boolean") {
+      res.status(400);
+      throw new Error(
+        "Invalid value for property 'complete', please provide a boolean value"
+      );
+    }
+
     const task = await Task.create({
       userId: user_id,
       title,
