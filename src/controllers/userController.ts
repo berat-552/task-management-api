@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import User from "../models/userModel";
 import jwt from "jsonwebtoken";
 import { ExtendedRequest } from "../types/ExtendedRequest";
+import tokenBlacklist from "../blacklist";
 
 //@desc Register new user
 //@route POST /api/users/register
@@ -11,11 +12,6 @@ import { ExtendedRequest } from "../types/ExtendedRequest";
 const registerUser: RequestHandler = asyncHandler(
   async (req: Request, res: Response) => {
     const { username, email, password } = req.body;
-
-    if (!username || !email || !password) {
-      res.status(400);
-      throw new Error("All fields are mandatory");
-    }
 
     const userAlreadyExists = await User.findOne({ email });
 
@@ -57,11 +53,6 @@ const loginUser: RequestHandler = asyncHandler(
   async (req: Request, res: Response) => {
     const { email, password } = req.body;
 
-    if (!email || !password) {
-      res.status(400);
-      throw new Error("All fields are mandatory");
-    }
-
     const user = await User.findOne({ email });
 
     if (!user) {
@@ -101,6 +92,27 @@ const loginUser: RequestHandler = asyncHandler(
   }
 );
 
+//@desc Logout User
+//@route GET /api/users/logout
+//@access private
+const logoutUser: RequestHandler = asyncHandler(
+  async (req: Request, res: Response) => {
+    // Access the user token from the request
+    const token = req.headers.authorization?.split(" ")[1];
+
+    if (!token) {
+      res.status(400);
+      throw new Error("Token not provided");
+    }
+
+    if (token) {
+      // Add the token to the blacklist
+      tokenBlacklist.add(token);
+      res.json({ status: 200, message: "Logged out successfully" });
+    }
+  }
+);
+
 //@desc Provide current user information
 //@route GET /api/users/info
 //@access private
@@ -112,9 +124,10 @@ const currentUserInfo: RequestHandler = asyncHandler(
     if (user) {
       res.json({ status: 200, user });
     } else {
-      res.status(401).json({ message: "User information not available" });
+      res.status(401);
+      throw new Error("User information not available");
     }
   }
 );
 
-export { registerUser, loginUser, currentUserInfo };
+export { registerUser, loginUser, logoutUser, currentUserInfo };
