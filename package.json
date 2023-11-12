@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc --watch",
-    "start": "node build/server.js",
+    "start": "node ./build/server.js",
     "dev": "nodemon src/server.ts"
   },
   "dependencies": {
