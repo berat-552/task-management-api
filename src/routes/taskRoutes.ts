@@ -14,7 +14,7 @@ const router = express.Router();
 
 router.route("/:id").get(getTasks);
 
-router.route("/:id").get(getTask);
+router.route("/task/:id").get(getTask);
 
 router
   .route("/")
