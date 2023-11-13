@@ -2,6 +2,8 @@
 
 Base url:`https://task-management-api-r3rk.onrender.com`
 
+Free instance servers on Render Cloud Hosting may experience spin-downs due to inactivity. As a result, the initial request after a period of inactivity may encounter some slowness as the server needs to spin up again.
+
 ## Description
 
 Express API for managing tasks with CRUD endpoints and user authentication using JWT.
