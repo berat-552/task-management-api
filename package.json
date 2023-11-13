@@ -6,7 +6,7 @@
   "author": "Berat",
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --watch",
     "start": "node ./build/server.js",
     "dev": "nodemon src/server.ts"
   },
