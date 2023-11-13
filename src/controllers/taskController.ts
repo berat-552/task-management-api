@@ -4,7 +4,7 @@ import Task from "../models/taskModel";
 import { isValidObjectId } from "../lib/isValidObjectId";
 
 //@desc Get all Tasks
-//@route GET /api/contacts
+//@route GET /api/tasks/:id
 //@access Private
 const getTasks: RequestHandler = asyncHandler(
   async (req: Request, res: Response) => {
@@ -28,7 +28,7 @@ const getTasks: RequestHandler = asyncHandler(
 );
 
 //@desc Get Task
-//@route GET /api/contacts
+//@route GET /api/tasks/task/:id
 //@access Private
 const getTask: RequestHandler = asyncHandler(
   async (req: Request, res: Response) => {
@@ -46,7 +46,7 @@ const getTask: RequestHandler = asyncHandler(
 );
 
 //@desc Create Task
-//@route POST /api/contacts
+//@route POST /api/tasks
 //@access Private
 const createTask: RequestHandler = asyncHandler(
   async (req: Request, res: Response) => {
@@ -77,7 +77,7 @@ const createTask: RequestHandler = asyncHandler(
 );
 
 //@desc Update Task
-//@route PUT /api/contacts/:id
+//@route PUT /api/tasks/:id
 //@access Private
 const updateTask: RequestHandler = asyncHandler(
   async (req: Request, res: Response) => {
@@ -107,7 +107,7 @@ const updateTask: RequestHandler = asyncHandler(
 );
 
 //@desc Delete Task
-//@route DELETE /api/contacts/:id
+//@route DELETE /api/tasks/:id
 //@access Private
 const deleteTask: RequestHandler = asyncHandler(
   async (req: Request, res: Response) => {
