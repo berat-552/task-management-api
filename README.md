@@ -19,7 +19,7 @@ Express API for managing tasks with CRUD endpoints and user authentication using
 
 #### Create Task
 
-- `POST /api/tasks/`: Create a task. Include data in the request body (JSON) with properties:
+- `POST /api/tasks/`: Create a task. Include data in the request body:
   - title
   - content
   - user_id
@@ -28,7 +28,7 @@ Express API for managing tasks with CRUD endpoints and user authentication using
 
 #### Update Task
 
-- `PUT /api/tasks/:id`: Update a task. Include ID in params and new data in the request body (JSON):
+- `PUT /api/tasks/:id`: Update a task. Include ID in params and new data in the request body:
   - title
   - content
   - completed
@@ -49,11 +49,13 @@ Express API for managing tasks with CRUD endpoints and user authentication using
 
 #### Login
 
-- `POST /api/users/login`: Login to get access to protected routes. Successful login provides a JWT. Attach the JWT as authorization in the Headers of protected routes. JWT expires in 24 hours.
+- `POST /api/users/login`: Login to get access to protected routes. Successful login provides a JWT. Attach the JWT as authorization in the Headers of protected routes. JWT expires in 24 hours. Provide fields in request body:
+  - email
+  - password
 
 #### User Information
 
-- `GET /api/users/info`: Returns information about the current user. Requires the JWT from the login endpoint.
+- `GET /api/users/info`: Returns information about the current user. Requires the JWT from the login endpoint to be attached as authorization in the Headers.
 
 #### Logout
 
