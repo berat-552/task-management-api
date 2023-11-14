@@ -1,12 +1,5 @@
-import mongoose, { Schema, Document } from "mongoose";
-
-interface Task extends Document {
-  userId: string;
-  title: string;
-  content: string;
-  completed: boolean;
-  dueDate: Date;
-}
+import mongoose, { Schema } from "mongoose";
+import { Task } from "../types/Task";
 
 const taskSchema: Schema<Task> = new Schema<Task>(
   {
