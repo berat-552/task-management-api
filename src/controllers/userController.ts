@@ -84,7 +84,13 @@ const loginUser: RequestHandler = asyncHandler(
           expiresIn: "24h",
         }
       );
-      res.json({ status: 200, message: "Logged in", accessToken: token });
+      res.json({
+        status: 200,
+        message: "Logged in",
+        userId: user.id,
+        email: user.email,
+        accessToken: token,
+      });
     } else {
       res.status(401);
       throw new Error("Incorrect email or password");
