@@ -42,7 +42,7 @@ Express API for managing tasks with CRUD endpoints and user authentication using
 
 #### Register
 
-- `POST /api/users/register`: Register a new user. Include data in the request body (JSON):
+- `POST /api/users/register`: Register a new user. Include data in the request body:
   - username
   - email
   - password.
@@ -59,4 +59,4 @@ Express API for managing tasks with CRUD endpoints and user authentication using
 
 #### Logout
 
-- `POST /api/users/logout`: Blacklists the JWT token, preventing the user from using the same JWT for login again. Requires user to login again.
+- `POST /api/users/logout`: Blacklists the JWT token, preventing the user from using the same JWT for login again. Requires user to login again. Requires the JWT to be attached as authorization in the Headers.
