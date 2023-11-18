@@ -10,7 +10,7 @@ Express API for managing tasks with CRUD endpoints and user authentication using
 
 ## Endpoints
 
-### Tasks
+### Tasks (Protected routes)
 
 #### Get Tasks
 
@@ -59,4 +59,4 @@ Express API for managing tasks with CRUD endpoints and user authentication using
 
 #### Logout
 
-- `POST /api/users/logout`: Blacklists the JWT token, preventing the user from using the same JWT for login again. Requires user to login again. Requires the JWT to be attached as authorization in the Headers.
+- `POST /api/users/logout`: Blacklists the JWT token that needs to be attached in authorisation Headers, preventing the user from using the same JWT for login again. Requires user to login again to receive a new token that is not blacklisted.
