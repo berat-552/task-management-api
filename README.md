@@ -14,8 +14,9 @@ Express API for managing tasks with CRUD endpoints and user authentication using
 
 #### Get Tasks
 
-- `GET /api/tasks/:id`: Get all tasks for a user by ID.
-- `GET /api/tasks/task/:id`: Get a single task by task ID.
+- `GET /api/tasks/:id`: Retrieve all tasks for a user by ID.
+- `GET /api/tasks/task/:id`: Retrieve a single task by task ID.
+- `GET /api/tasks/:id/:qty`: Retrieve a specified number of tasks for a user.
 
 #### Create Task
 

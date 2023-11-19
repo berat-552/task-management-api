@@ -13,7 +13,7 @@ const validateFields =
         error: `Missing required fields: ${missingFields.join(", ")}`,
       });
     } else {
-      next(); // Proceed to the next middleware or route
+      next();
     }
   };
 

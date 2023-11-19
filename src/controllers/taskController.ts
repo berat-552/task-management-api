@@ -3,7 +3,7 @@ import asyncHandler from "express-async-handler";
 import Task from "../models/taskModel";
 import { isValidObjectId } from "../lib/isValidObjectId";
 
-//@desc Get all Tasks
+//@desc Retrieve all tasks for user
 //@route GET /api/tasks/:id
 //@access Private
 const getTasks: RequestHandler = asyncHandler(
@@ -23,11 +23,11 @@ const getTasks: RequestHandler = asyncHandler(
       throw new Error("Tasks not found");
     }
 
-    res.json({ status: 200, tasks });
+    res.json({ status: 200, quantity: tasks.length, tasks });
   }
 );
 
-//@desc Get Task
+//@desc Retrieve single task for user
 //@route GET /api/tasks/task/:id
 //@access Private
 const getTask: RequestHandler = asyncHandler(
@@ -42,6 +42,34 @@ const getTask: RequestHandler = asyncHandler(
     }
 
     res.json({ status: 200, task });
+  }
+);
+
+//@desc Retrieve a specified number of tasks for a user
+//@route GET /api/tasks/:id/:qty
+//@access Private
+const getTasksByQuantity: RequestHandler = asyncHandler(
+  async (req: Request, res: Response) => {
+    const id = req.params.id;
+    const numberWanted = parseInt(req.params.qty);
+
+    const tasks = await Task.find({ userId: id });
+
+    if (!tasks) {
+      res.status(404);
+      throw new Error("Tasks not found");
+    }
+
+    if (numberWanted > tasks.length) {
+      res.status(404);
+      throw new Error(
+        `Could not retrieve ${numberWanted} tasks because user has a total of ${tasks.length} tasks`
+      );
+    }
+
+    const quantityOfTasks = tasks.splice(0, numberWanted);
+
+    res.json({ status: 200, quantity: numberWanted, quantityOfTasks });
   }
 );
 
@@ -100,7 +128,7 @@ const updateTask: RequestHandler = asyncHandler(
         completed,
         dueDate,
       },
-      { new: true } //returns the updated document
+      { new: true } // returns the updated document
     );
     res.json({ status: 200, updatedTask: task });
   }
@@ -131,4 +159,11 @@ const deleteTask: RequestHandler = asyncHandler(
   }
 );
 
-export { getTasks, getTask, createTask, updateTask, deleteTask };
+export {
+  getTasks,
+  getTask,
+  createTask,
+  updateTask,
+  deleteTask,
+  getTasksByQuantity,
+};

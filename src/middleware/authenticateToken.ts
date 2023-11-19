@@ -30,7 +30,6 @@ const authenticateToken = asyncHandler(
       // Set the user data on the request object
       req.user = user as JwtPayload;
 
-      // Continue to the next middleware
       next();
     });
   }
