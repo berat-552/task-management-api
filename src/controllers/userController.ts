@@ -84,6 +84,7 @@ const loginUser: RequestHandler = asyncHandler(
           expiresIn: "24h",
         }
       );
+
       res.json({
         status: 200,
         message: "Logged in",

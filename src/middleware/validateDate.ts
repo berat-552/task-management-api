@@ -8,7 +8,7 @@ const validateDate = (req: Request, res: Response, next: NextFunction) => {
   if (!isValid(parsedDate)) {
     res.status(400).json({ error: "Invalid dueDate" });
   } else {
-    next(); // Proceed to the next middleware or route
+    next();
   }
 };
 

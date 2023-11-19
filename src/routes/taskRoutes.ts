@@ -5,6 +5,7 @@ import {
   createTask,
   updateTask,
   deleteTask,
+  getTasksByQuantity,
 } from "../controllers/taskController";
 import validateFields from "../middleware/validateFields";
 import { requiredFieldsCreate, requiredFieldsUpdate } from "../constants";
@@ -15,6 +16,8 @@ const router = express.Router();
 router.route("/:id").get(getTasks);
 
 router.route("/task/:id").get(getTask);
+
+router.route("/:id/:qty").get(getTasksByQuantity);
 
 router
   .route("/")
