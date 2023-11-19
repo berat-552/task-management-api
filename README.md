@@ -10,6 +10,35 @@ Express API for managing tasks with CRUD endpoints and user authentication using
 
 ## Endpoints
 
+### Users
+
+#### Register
+
+- `POST /api/users/register`: Register a new user. Include data in the request body:
+  - username
+  - email
+  - password.
+
+#### Login
+
+**Protected**
+
+- `POST /api/users/login`: Login to get access to protected routes. Successful login provides a JWT. Attach the JWT as authorization in the Headers of protected routes. JWT expires in 24 hours. Provide fields in request body:
+  - email
+  - password
+
+#### User Information
+
+**Protected**
+
+- `GET /api/users/info`: Returns information about the current user. Requires the JWT from the login endpoint to be attached as authorization in the Headers.
+
+#### Logout
+
+**Protected**
+
+- `POST /api/users/logout`: Blacklists the JWT token that needs to be attached in authorisation Headers, preventing the user from using the same JWT for login again. Requires user to login again to receive a new token that is not blacklisted.
+
 ### Tasks (Protected routes)
 
 #### Get Tasks
@@ -38,26 +67,3 @@ Express API for managing tasks with CRUD endpoints and user authentication using
 #### Delete Task
 
 - `DELETE /api/tasks/:id`: Delete a task. Provide the task ID in the params.
-
-### Users
-
-#### Register
-
-- `POST /api/users/register`: Register a new user. Include data in the request body:
-  - username
-  - email
-  - password.
-
-#### Login
-
-- `POST /api/users/login`: Login to get access to protected routes. Successful login provides a JWT. Attach the JWT as authorization in the Headers of protected routes. JWT expires in 24 hours. Provide fields in request body:
-  - email
-  - password
-
-#### User Information
-
-- `GET /api/users/info`: Returns information about the current user. Requires the JWT from the login endpoint to be attached as authorization in the Headers.
-
-#### Logout
-
-- `POST /api/users/logout`: Blacklists the JWT token that needs to be attached in authorisation Headers, preventing the user from using the same JWT for login again. Requires user to login again to receive a new token that is not blacklisted.
