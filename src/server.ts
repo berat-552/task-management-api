@@ -20,6 +20,8 @@ app.use(cors());
 // parse JSON data from client
 app.use(express.json());
 
+app.set("trust proxy", 1);
+
 app.use(limiter);
 
 app.use("/api/tasks", authenticateToken, taskRoutes);
