@@ -4,6 +4,22 @@ Base URL: `https://task-management-api-r3rk.onrender.com`
 
 **Note**: Free instance servers on Render Cloud Hosting may experience spin-downs due to inactivity. The initial request after a period of inactivity may encounter some slowness as the server needs to spin up again.
 
+## Rate Limits
+
+- **Requests Per Hour**: 50 requests per hour per IP address.
+
+## Handling Rate Limiting Responses
+
+When a client exceeds the rate limit, the API will respond with a status code of `429 Too Many Requests` and include a JSON response in the following format:
+
+```json
+{
+  "error": "Too many requests from this IP, please try again later."
+}
+```
+
+---
+
 ## Description
 
 Express API for managing tasks with CRUD endpoints and user authentication using JWT.
@@ -45,7 +61,7 @@ Express API for managing tasks with CRUD endpoints and user authentication using
 
 - `POST /api/users/logout`: Blacklists the JWT token that needs to be attached in authorization Headers, preventing the user from using the same JWT for login again. Requires the user to login again to receive a new token that is not blacklisted.
 
-====================
+---
 
 ### Tasks (Protected Routes, Requires JWT as Authorization)
 
@@ -76,8 +92,12 @@ Express API for managing tasks with CRUD endpoints and user authentication using
   - completed
   - dueDate
 
-====================
+---
 
 #### Delete Task
 
 - `DELETE /api/tasks/:id`: Delete a task. Provide the task ID in the params.
+
+```
+
+```
