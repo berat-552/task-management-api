@@ -97,7 +97,3 @@ Express API for managing tasks with CRUD endpoints and user authentication using
 #### Delete Task
 
 - `DELETE /api/tasks/:id`: Delete a task. Provide the task ID in the params.
-
-```
-
-```
