@@ -4,6 +4,7 @@ import {
   loginUser,
   currentUserInfo,
   logoutUser,
+  deleteUser,
 } from "../controllers/userController";
 import authenticateToken from "../middleware/authenticateToken";
 import isTokenBlacklisted from "../middleware/isTokenBlacklisted";
@@ -18,7 +19,8 @@ router.post("/login", validateFields(requiredFieldsLogin), loginUser);
 
 router.post("/logout", isTokenBlacklisted, logoutUser);
 
-// authenticate token middleware on this route
 router.get("/info", authenticateToken, currentUserInfo);
+
+router.delete("/delete", authenticateToken, isTokenBlacklisted, deleteUser);
 
 export default router;

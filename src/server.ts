@@ -7,6 +7,7 @@ import connectDb from "./config/dbConnection";
 import userRoutes from "./routes/userRoutes";
 import authenticateToken from "./middleware/authenticateToken";
 import limiter from "./limiter";
+import checkUserExists from "./middleware/checkUserExists";
 
 dotenv.config(); // load environment variables
 
