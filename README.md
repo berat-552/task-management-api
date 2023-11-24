@@ -63,6 +63,10 @@ Express API for managing tasks with CRUD endpoints and user authentication using
 
 ---
 
+- `POST /api/users/delete`: Deletes user account. Requires the JWT token that needs to be attached in authorization headers.
+
+---
+
 ### Tasks (Protected Routes, Requires JWT as Authorization)
 
 #### Get Tasks
@@ -70,6 +74,7 @@ Express API for managing tasks with CRUD endpoints and user authentication using
 - `GET /api/tasks/:id`: Retrieve all tasks for a user by ID.
 - `GET /api/tasks/task/:id`: Retrieve a single task by task ID.
 - `GET /api/tasks/:id/:qty`: Retrieve a specified number of tasks for a user.
+- `GET /api/tasks/search/:id?q=ExampleQuery`: Retrieve tasks for a user that match query param.`
 
 ---
 

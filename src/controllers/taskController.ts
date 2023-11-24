@@ -15,7 +15,6 @@ const getTasks: RequestHandler = asyncHandler(
       throw new Error("Id not provided");
     }
 
-    // tasks for that user
     const tasks = await Task.find({ userId: id });
 
     if (!tasks) {
@@ -55,21 +54,53 @@ const getTasksByQuantity: RequestHandler = asyncHandler(
 
     const tasks = await Task.find({ userId: id });
 
-    if (!tasks) {
+    if (!tasks.length) {
       res.status(404);
       throw new Error("Tasks not found");
     }
 
     if (numberWanted > tasks.length) {
-      res.status(404);
-      throw new Error(
-        `Could not retrieve ${numberWanted} tasks because user has a total of ${tasks.length} tasks`
-      );
+      res.status(200).json({
+        status: "Partial Content",
+        message: `Requested ${numberWanted} tasks, but user has a total of ${tasks.length} tasks`,
+        availableTasks: tasks,
+      });
+      return;
     }
 
-    const quantityOfTasks = tasks.splice(0, numberWanted);
+    const quantityOfTasks = tasks.slice(0, numberWanted);
 
     res.json({ status: 200, quantity: numberWanted, quantityOfTasks });
+  }
+);
+
+//@desc Search for tasks belonging to a user
+//@route GET /api/tasks/search/:id?q=exampleQuery
+//@access Private
+const searchTasks: RequestHandler = asyncHandler(
+  async (req: Request, res: Response) => {
+    const id = req.params.id;
+    const searchQuery = req.query.q?.toString().trim();
+
+    if (!searchQuery) {
+      res.status(400);
+      throw new Error("Please provide a search query");
+    }
+
+    const searchedTasks = await Task.find({
+      userId: id,
+      $or: [
+        { title: { $regex: searchQuery, $options: "i" } }, // case insensitive
+        { content: { $regex: searchQuery, $options: "i" } },
+      ],
+    });
+
+    if (!searchedTasks || searchedTasks.length === 0) {
+      res.status(404);
+      throw new Error(`No match for search query '${searchQuery}' found`);
+    }
+
+    res.json({ status: 200, searchQuery, searchedTasks });
   }
 );
 
@@ -109,6 +140,7 @@ const createTask: RequestHandler = asyncHandler(
 //@access Private
 const updateTask: RequestHandler = asyncHandler(
   async (req: Request, res: Response) => {
+    // task id
     const id = req.params.id;
 
     const { title, content, completed, dueDate } = req.body;
@@ -166,4 +198,5 @@ export {
   updateTask,
   deleteTask,
   getTasksByQuantity,
+  searchTasks,
 };

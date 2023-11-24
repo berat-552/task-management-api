@@ -5,6 +5,7 @@ import User from "../models/userModel";
 import jwt from "jsonwebtoken";
 import { ExtendedRequest } from "../types/ExtendedRequest";
 import tokenBlacklist from "../blacklist";
+import Task from "../models/taskModel";
 
 //@desc Register new user
 //@route POST /api/users/register
@@ -137,4 +138,43 @@ const currentUserInfo: RequestHandler = asyncHandler(
   }
 );
 
-export { registerUser, loginUser, logoutUser, currentUserInfo };
+//@desc DELETE user account
+//@route DELETE /api/users/delete
+//@access private
+const deleteUser: RequestHandler = asyncHandler(
+  async (req: ExtendedRequest, res: Response) => {
+    const user = req.user;
+
+    if (!user) {
+      res.status(401);
+      throw new Error("User information not available");
+    }
+
+    const userFound = await User.findById(user.user.userId);
+
+    if (!userFound) {
+      res.status(404);
+      throw new Error("User cannot be deleted because user does not exist");
+    }
+
+    const userToDelete = await User.deleteOne({
+      _id: user.user.userId,
+    });
+
+    if (!userToDelete) {
+      res.status(404);
+      throw new Error("User does not exist");
+    }
+
+    const deleteUserTasks = await Task.deleteMany({ userId: user.user.userId });
+
+    if (userToDelete.deletedCount === 1) {
+      res.status(200).json({
+        message: "User data and tasks deleted successfully",
+        username: user.user.username,
+      });
+    }
+  }
+);
+
+export { registerUser, loginUser, logoutUser, currentUserInfo, deleteUser };
