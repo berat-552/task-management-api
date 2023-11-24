@@ -63,6 +63,8 @@ Express API for managing tasks with CRUD endpoints and user authentication using
 
 ---
 
+#### Delete Account
+
 - `POST /api/users/delete`: Deletes user account. Requires the JWT token that needs to be attached in authorization headers.
 
 ---
