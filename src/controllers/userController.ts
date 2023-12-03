@@ -173,6 +173,9 @@ const deleteUser: RequestHandler = asyncHandler(
         message: "User data and tasks deleted successfully",
         username: user.user.username,
       });
+    } else {
+      res.status(500);
+      throw new Error("Cannot delete user");
     }
   }
 );
