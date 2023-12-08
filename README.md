@@ -1,9 +1,5 @@
 # Task Management API
 
-Base URL: `https://task-management-api-r3rk.onrender.com`
-
-**Note**: Free instance servers on Render Cloud Hosting may experience spin-downs due to inactivity. The initial request after a period of inactivity may encounter some slowness as the server needs to spin up again.
-
 ## Rate Limits
 
 - **Requests Per Hour**: 50 requests per hour per IP address.
