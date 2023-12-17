@@ -12,6 +12,7 @@ import validateFields from "../middleware/validateFields";
 import { requiredFieldsCreate, requiredFieldsUpdate } from "../constants";
 import validateDate from "../middleware/validateDate";
 import checkUserExists from "../middleware/checkUserExists";
+import validatePriority from "../middleware/validatePriority";
 
 const router = express.Router();
 
@@ -28,13 +29,19 @@ router
   .post(
     validateFields(requiredFieldsCreate),
     validateDate,
+    validatePriority,
     checkUserExists,
     createTask
   );
 
 router
   .route("/:id")
-  .put(validateFields(requiredFieldsUpdate), validateDate, updateTask);
+  .put(
+    validateFields(requiredFieldsUpdate),
+    validateDate,
+    validatePriority,
+    updateTask
+  );
 
 router.route("/:id").delete(deleteTask);
 

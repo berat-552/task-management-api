@@ -109,7 +109,7 @@ const searchTasks: RequestHandler = asyncHandler(
 //@access Private
 const createTask: RequestHandler = asyncHandler(
   async (req: Request, res: Response) => {
-    const { title, content, completed, user_id, dueDate } = req.body;
+    const { title, content, completed, user_id, dueDate, priority } = req.body;
 
     if (typeof completed !== "boolean") {
       res.status(400);
@@ -122,6 +122,7 @@ const createTask: RequestHandler = asyncHandler(
       userId: user_id,
       title,
       content,
+      priority,
       completed,
       dueDate,
     });
@@ -143,7 +144,7 @@ const updateTask: RequestHandler = asyncHandler(
     // task id
     const id = req.params.id;
 
-    const { title, content, completed, dueDate } = req.body;
+    const { title, content, completed, dueDate, priority } = req.body;
 
     const taskExists = isValidObjectId(id) ? await Task.findById(id) : null;
 
@@ -157,6 +158,7 @@ const updateTask: RequestHandler = asyncHandler(
       {
         title,
         content,
+        priority,
         completed,
         dueDate,
       },
