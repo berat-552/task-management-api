@@ -1,4 +1,5 @@
 import { Document } from "mongoose";
+import Priority from "./enums/Priority";
 
 export interface Task extends Document {
   userId: string;
@@ -6,4 +7,5 @@ export interface Task extends Document {
   content: string;
   completed: boolean;
   dueDate: Date;
+  priority: Priority;
 }

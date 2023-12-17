@@ -13,6 +13,7 @@ const requiredFieldsCreate: string[] = [
   "content",
   "completed",
   "dueDate",
+  "priority",
 ];
 
 // fields on update
@@ -21,6 +22,7 @@ const requiredFieldsUpdate: string[] = [
   "content",
   "completed",
   "dueDate",
+  "priority",
 ];
 // fields on login
 const requiredFieldsLogin: string[] = ["email", "password"];

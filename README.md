@@ -86,6 +86,7 @@ Express API for managing tasks with CRUD endpoints and user authentication using
   - user_id
   - completed
   - dueDate
+  - priority ("High", "Medium", "Low")
 
 ---
 
@@ -96,6 +97,7 @@ Express API for managing tasks with CRUD endpoints and user authentication using
   - content
   - completed
   - dueDate
+  - priority ("High", "Medium", "Low")
 
 ---
 

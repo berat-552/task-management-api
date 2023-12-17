@@ -4,8 +4,8 @@ import bcrypt from "bcrypt";
 import User from "../models/userModel";
 import jwt from "jsonwebtoken";
 import { ExtendedRequest } from "../types/ExtendedRequest";
-import tokenBlacklist from "../blacklist";
 import Task from "../models/taskModel";
+import Blacklist from "../models/blacklistModel";
 
 //@desc Register new user
 //@route POST /api/users/register
@@ -101,23 +101,21 @@ const loginUser: RequestHandler = asyncHandler(
 );
 
 //@desc Logout User
-//@route GET /api/users/logout
+//@route POST /api/users/logout
 //@access private
 const logoutUser: RequestHandler = asyncHandler(
   async (req: Request, res: Response) => {
     // Access the user token from the request
     const token = req.headers.authorization?.split(" ")[1];
 
-    if (!token) {
-      res.status(400);
-      throw new Error("Token not provided");
-    }
+    const newBlacklistEntry = new Blacklist({
+      token,
+      reason: "User logged out",
+    });
 
-    if (token) {
-      // Add the token to the blacklist
-      tokenBlacklist.add(token);
-      res.json({ status: 200, message: "Logged out successfully" });
-    }
+    await newBlacklistEntry.save();
+
+    res.json({ status: 200, message: "Logged out successfully" });
   }
 );
 
