@@ -4,7 +4,7 @@ import Task from "../models/taskModel";
 import { isValidObjectId } from "../lib/isValidObjectId";
 
 //@desc Retrieve all tasks for user
-//@route GET /api/tasks/:id
+//@route GET /api/v1/tasks/:id
 //@access Private
 const getTasks: RequestHandler = asyncHandler(
   async (req: Request, res: Response) => {
@@ -27,7 +27,7 @@ const getTasks: RequestHandler = asyncHandler(
 );
 
 //@desc Retrieve single task for user
-//@route GET /api/tasks/task/:id
+//@route GET /api/v1/tasks/task/:id
 //@access Private
 const getTask: RequestHandler = asyncHandler(
   async (req: Request, res: Response) => {
@@ -45,7 +45,7 @@ const getTask: RequestHandler = asyncHandler(
 );
 
 //@desc Retrieve a specified number of tasks for a user
-//@route GET /api/tasks/:id/:qty
+//@route GET /api/v1/tasks/:id/:qty
 //@access Private
 const getTasksByQuantity: RequestHandler = asyncHandler(
   async (req: Request, res: Response) => {
@@ -75,7 +75,7 @@ const getTasksByQuantity: RequestHandler = asyncHandler(
 );
 
 //@desc Search for tasks belonging to a user
-//@route GET /api/tasks/search/:id?q=exampleQuery
+//@route GET /api/v1/tasks/search/:id?q=exampleQuery
 //@access Private
 const searchTasks: RequestHandler = asyncHandler(
   async (req: Request, res: Response) => {
@@ -105,7 +105,7 @@ const searchTasks: RequestHandler = asyncHandler(
 );
 
 //@desc Create Task
-//@route POST /api/tasks
+//@route POST /api/v1/tasks
 //@access Private
 const createTask: RequestHandler = asyncHandler(
   async (req: Request, res: Response) => {
@@ -137,7 +137,7 @@ const createTask: RequestHandler = asyncHandler(
 );
 
 //@desc Update Task
-//@route PUT /api/tasks/:id
+//@route PUT /api/v1/tasks/:id
 //@access Private
 const updateTask: RequestHandler = asyncHandler(
   async (req: Request, res: Response) => {
@@ -169,7 +169,7 @@ const updateTask: RequestHandler = asyncHandler(
 );
 
 //@desc Delete Task
-//@route DELETE /api/tasks/:id
+//@route DELETE /api/v1/tasks/:id
 //@access Private
 const deleteTask: RequestHandler = asyncHandler(
   async (req: Request, res: Response) => {

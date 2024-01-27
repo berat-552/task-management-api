@@ -26,7 +26,7 @@ Express API for managing tasks with CRUD endpoints and user authentication using
 
 #### Register
 
-- `POST /api/users/register`: Register a new user. Include data in the request body:
+- `POST /api/v1/auth/register`: Register a new user. Include data in the request body:
   - username
   - email
   - password.
@@ -37,7 +37,7 @@ Express API for managing tasks with CRUD endpoints and user authentication using
 
 **Protected (Only registered users can access this route)**
 
-- `POST /api/users/login`: Login to get access to protected routes. Successful login provides a JWT. Attach the JWT as authorization in the Headers of protected routes. JWT expires in 24 hours. Provide fields in the request body:
+- `POST /api/v1/auth/login`: Login to get access to protected routes. Successful login provides a JWT. Attach the JWT as authorization in the Headers of protected routes. JWT expires in 24 hours. Provide fields in the request body:
   - email
   - password
 
@@ -47,7 +47,7 @@ Express API for managing tasks with CRUD endpoints and user authentication using
 
 **Protected (Requires JWT as Authorization in Headers)**
 
-- `GET /api/users/info`: Returns information about the current user. Requires the JWT from the login endpoint to be attached as authorization in the Headers.
+- `GET /api/v1/auth/info`: Returns information about the current user. Requires the JWT from the login endpoint to be attached as authorization in the Headers.
 
 ---
 
@@ -55,7 +55,7 @@ Express API for managing tasks with CRUD endpoints and user authentication using
 
 **Protected (Requires JWT as Authorization in Headers)**
 
-- `POST /api/users/logout`: Blacklists the JWT token that needs to be attached in authorization Headers, preventing the user from using the same JWT for login again. Requires the user to login again to receive a new token that is not blacklisted.
+- `POST /api/v1/auth/logout`: Blacklists the JWT token that needs to be attached in authorization Headers, preventing the user from using the same JWT for login again. Requires the user to login again to receive a new token that is not blacklisted.
 
 ---
 
@@ -63,7 +63,7 @@ Express API for managing tasks with CRUD endpoints and user authentication using
 
 **Protected (Requires JWT as Authorization in Headers)**
 
-- `POST /api/users/delete`: Deletes user account. Requires the JWT token that needs to be attached in authorization headers.
+- `POST /api/v1/auth/delete`: Deletes user account. Requires the JWT token that needs to be attached in authorization headers.
 
 ---
 
@@ -71,16 +71,16 @@ Express API for managing tasks with CRUD endpoints and user authentication using
 
 #### Get Tasks
 
-- `GET /api/tasks/:id`: Retrieve all tasks for a user by ID.
-- `GET /api/tasks/task/:id`: Retrieve a single task by task ID.
-- `GET /api/tasks/:id/:qty`: Retrieve a specified number of tasks for a user.
-- `GET /api/tasks/search/:id?q=ExampleQuery`: Retrieve tasks for a user that match query param.`
+- `GET /api/v1/tasks/:id`: Retrieve all tasks for a user by ID.
+- `GET /api/v1/tasks/task/:id`: Retrieve a single task by task ID.
+- `GET /api/v1/tasks/:id/:qty`: Retrieve a specified number of tasks for a user.
+- `GET /api/v1/tasks/search/:id?q=ExampleQuery`: Retrieve tasks for a user that match query param.`
 
 ---
 
 #### Create Task
 
-- `POST /api/tasks/`: Create a task. Include data in the request body:
+- `POST /api/v1/tasks/`: Create a task. Include data in the request body:
   - title
   - content
   - user_id
@@ -92,7 +92,7 @@ Express API for managing tasks with CRUD endpoints and user authentication using
 
 #### Update Task
 
-- `PUT /api/tasks/:id`: Update a task. Include ID in params and new data in the request body:
+- `PUT /api/v1/tasks/:id`: Update a task. Include ID in params and new data in the request body:
   - title
   - content
   - completed
@@ -103,4 +103,4 @@ Express API for managing tasks with CRUD endpoints and user authentication using
 
 #### Delete Task
 
-- `DELETE /api/tasks/:id`: Delete a task. Provide the task ID in the params.
+- `DELETE /api/v1/tasks/:id`: Delete a task. Provide the task ID in the params.
