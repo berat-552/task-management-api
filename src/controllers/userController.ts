@@ -8,7 +8,7 @@ import Task from "../models/taskModel";
 import Blacklist from "../models/blacklistModel";
 
 //@desc Register new user
-//@route POST /api/users/register
+//@route POST /api/v1/auth/register
 //@access Public
 const registerUser: RequestHandler = asyncHandler(
   async (req: Request, res: Response) => {
@@ -48,7 +48,7 @@ const registerUser: RequestHandler = asyncHandler(
 );
 
 //@desc Login user
-//@route POST /api/users/login
+//@route POST /api/v1/auth/login
 //@access private
 const loginUser: RequestHandler = asyncHandler(
   async (req: Request, res: Response) => {
@@ -64,15 +64,27 @@ const loginUser: RequestHandler = asyncHandler(
     // compare password with hashed password from db
     const correctPassword = await bcrypt.compare(password, user.password);
 
-    const JWT_SECRET = process.env.JWT_SECRET;
+    const { JWT_SECRET, JWT_REFRESH_SECRET } = process.env;
 
-    if (!JWT_SECRET) {
+    if (!JWT_SECRET || !JWT_REFRESH_SECRET) {
       res.status(500);
       throw new Error("Secret Key is not available");
     }
 
     if (user && correctPassword) {
-      const token = jwt.sign(
+      const refreshToken = jwt.sign(
+        {
+          user: {
+            userId: user.id,
+          },
+        },
+        JWT_REFRESH_SECRET,
+        {
+          expiresIn: "7d",
+        }
+      );
+
+      const accessToken = jwt.sign(
         {
           user: {
             username: user.username,
@@ -91,7 +103,8 @@ const loginUser: RequestHandler = asyncHandler(
         message: "Logged in",
         userId: user.id,
         email: user.email,
-        accessToken: token,
+        accessToken,
+        refreshToken,
       });
     } else {
       res.status(401);
@@ -101,7 +114,7 @@ const loginUser: RequestHandler = asyncHandler(
 );
 
 //@desc Logout User
-//@route POST /api/users/logout
+//@route POST /api/v1/auth/logout
 //@access private
 const logoutUser: RequestHandler = asyncHandler(
   async (req: Request, res: Response) => {
@@ -120,7 +133,7 @@ const logoutUser: RequestHandler = asyncHandler(
 );
 
 //@desc Provide current user information
-//@route GET /api/users/info
+//@route GET /api/v1/auth/info
 //@access private
 const currentUserInfo: RequestHandler = asyncHandler(
   async (req: ExtendedRequest, res: Response) => {
@@ -137,7 +150,7 @@ const currentUserInfo: RequestHandler = asyncHandler(
 );
 
 //@desc DELETE user account
-//@route DELETE /api/users/delete
+//@route DELETE /api/v1/auth/delete
 //@access private
 const deleteUser: RequestHandler = asyncHandler(
   async (req: ExtendedRequest, res: Response) => {
@@ -164,7 +177,7 @@ const deleteUser: RequestHandler = asyncHandler(
       throw new Error("User does not exist");
     }
 
-    const deleteUserTasks = await Task.deleteMany({ userId: user.user.userId });
+    await Task.deleteMany({ userId: user.user.userId });
 
     if (userToDelete.deletedCount === 1) {
       res.status(200).json({

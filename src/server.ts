@@ -24,9 +24,9 @@ app.set("trust proxy", 1);
 
 app.use(limiter);
 
-app.use("/api/tasks", authenticateToken, taskRoutes);
+app.use("/api/v1/tasks", authenticateToken, taskRoutes);
 
-app.use("/api/users", userRoutes);
+app.use("/api/v1/auth", userRoutes);
 
 app.use(errorHandler);
 
