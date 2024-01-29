@@ -2,7 +2,7 @@
 
 ## Rate Limits
 
-- **Requests Per Hour**: 50 requests per hour per IP address.
+- **Requests Per Hour**: 1000 requests per hour per IP address.
 
 ## Handling Rate Limiting Responses
 
