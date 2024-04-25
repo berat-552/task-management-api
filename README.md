@@ -1,5 +1,47 @@
 # Task Management API
 
+## Description
+
+This API provides endpoints for task management, supporting operations such as creating, retrieving, updating, and deleting tasks, as well as registering and authenticating users.
+
+## Prerequisities
+
+- Docker: Make sure you have Docker installed on your machine. If not, you can download it from [Docker's official website](https://www.docker.com/get-started).
+
+## Installation
+
+Follow these steps to set up the project:
+
+You can use MongoDB either locally or in the cloud (e.g., MongoDB Atlas).
+
+1. Clone the repository `git clone https://github.com/berat-552/task-management-api.git`
+2. Navigate to the cloned repository directory `cd task-management-api`
+3. Run `docker-compose up --build` to start the container
+4. Access the API at `http://localhost:5001`
+
+## Environment Variables
+
+This app requires the following environment variables:
+
+- CONNECTION_STRING: Your MongoDB connnection string.
+- JWT_SECRET: Your JWT secret token.
+- JWT_REFRESH_SECRET: Your JWT refresh secret token.
+
+- Create an env file from the `.env.example` in the root directory in this format.
+- Replace the placeholder values with the real secrets.
+
+```env
+CONNECTION_STRING=your-connection-string
+JWT_SECRET=your-jwt-secret
+JWT_REFRESH_SECRET=your-jwt-refresh-secret
+```
+
+# API Usage
+
+### Notes
+
+- Endpoints marked as "**Protected**" require a valid JWT in the Authorization header.
+
 ## Rate Limits
 
 - **Requests Per Hour**: 1000 requests per hour per IP address.
@@ -15,10 +57,6 @@ When a client exceeds the rate limit, the API will respond with a status code of
 ```
 
 ---
-
-## Description
-
-Express API for managing tasks with CRUD endpoints and user authentication using JWT.
 
 ## Endpoints
 
@@ -67,7 +105,9 @@ Express API for managing tasks with CRUD endpoints and user authentication using
 
 ---
 
-### Tasks (Protected Routes, Requires JWT as Authorization)
+### Tasks
+
+##### Protected Routes (Requires JWT as Authorization)
 
 #### Get Tasks
 
@@ -104,3 +144,5 @@ Express API for managing tasks with CRUD endpoints and user authentication using
 #### Delete Task
 
 - `DELETE /api/v1/tasks/:id`: Delete a task. Provide the task ID in the params.
+
+---
