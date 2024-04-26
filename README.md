@@ -14,6 +14,9 @@ Follow these steps to set up the project:
 
 You can use MongoDB either locally or in the cloud (e.g., MongoDB Atlas).
 
+- [MongoDB - Local](https://www.mongodb.com/try/download/community)
+  [MongoDB - Cloud](https://www.mongodb.com/atlas/database)
+
 1. Clone the repository `git clone https://github.com/berat-552/task-management-api.git`
 2. Navigate to the cloned repository directory `cd task-management-api`
 3. Run `docker-compose up --build` to start the container
@@ -27,8 +30,8 @@ This app requires the following environment variables:
 - JWT_SECRET: Your JWT secret token.
 - JWT_REFRESH_SECRET: Your JWT refresh secret token.
 
-- Create an env file from the `.env.example` in the root directory in this format.
-- Replace the placeholder values with the real secrets.
+1. Create an env file from the `.env.example` in the root directory in this format.
+2. Replace the placeholder values with the real secrets.
 
 ```env
 CONNECTION_STRING=your-connection-string

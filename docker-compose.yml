@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     image: "task-management-api-app"
     ports:
-      - "${HOST_PORT}:${PORT}"
+      - "${PORT}:${PORT}"
     volumes:
       - ./src:/app
       - /app/node_modules
