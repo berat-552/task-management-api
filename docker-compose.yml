@@ -7,10 +7,7 @@ services:
     image: "task-management-api-app"
     ports:
       - "${PORT}:${PORT}"
-    volumes:
-      - ./src:/app
-      - /app/node_modules
-    command: "yarn dev"
+    command: "yarn start"
     networks:
       - default
     environment:
