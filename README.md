@@ -68,9 +68,13 @@ When a client exceeds the rate limit, the API will respond with a status code of
 #### Register
 
 - `POST /api/v1/auth/register`: Register a new user. Include data in the request body:
-  - username
-  - email
-  - password.
+```json
+{
+  "username": "exampleUser",
+  "email": "user@example.com",
+  "password": "examplePassword123"
+}
+```
 
 ---
 
@@ -79,8 +83,12 @@ When a client exceeds the rate limit, the API will respond with a status code of
 **Protected (Only registered users can access this route)**
 
 - `POST /api/v1/auth/login`: Login to get access to protected routes. Successful login provides a JWT. Attach the JWT as authorization in the Headers of protected routes. JWT expires in 24 hours. Provide fields in the request body:
-  - email
-  - password
+```json
+{
+  "email": "user@example.com",
+  "password": "examplePassword123"
+}
+``` 
 
 ---
 
@@ -124,23 +132,31 @@ When a client exceeds the rate limit, the API will respond with a status code of
 #### Create Task
 
 - `POST /api/v1/tasks/`: Create a task. Include data in the request body:
-  - title
-  - content
-  - user_id
-  - completed
-  - dueDate
-  - priority ("High", "Medium", "Low")
+```json
+{
+  "title": "Example Task",
+  "content": "This is the content of the example task.",
+  "user_id": "user12345",
+  "completed": false,
+  "dueDate": "2024-12-31",
+  "priority": "High"
+}
+```
 
 ---
 
 #### Update Task
 
 - `PUT /api/v1/tasks/:id`: Update a task. Include ID in params and new data in the request body:
-  - title
-  - content
-  - completed
-  - dueDate
-  - priority ("High", "Medium", "Low")
+```json
+{
+  "title": "Example Task",
+  "content": "This is the changed content of the example task.",
+  "completed": false,
+  "dueDate": "2024-12-31",
+  "priority": "Medium"
+}
+```
 
 ---
 
