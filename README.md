@@ -47,7 +47,7 @@ JWT_REFRESH_SECRET=your-jwt-refresh-secret
 
 ## Rate Limits
 
-- **Requests Per Hour**: 1000 requests per hour per IP address.
+- **Requests Per Hour**: 300 requests per hour per IP address.
 
 ## Handling Rate Limiting Responses
 
