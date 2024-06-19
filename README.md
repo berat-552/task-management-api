@@ -6,7 +6,7 @@ This API provides endpoints for task management, supporting operations such as c
 
 ## Prerequisities
 
-- Docker: Make sure you have Docker installed on your machine. If not, you can download it from [Docker's official website](https://www.docker.com/get-started).
+- Docker (optional to run in container): Make sure you have Docker installed on your machine. If not, you can download it from [Docker's official website](https://www.docker.com/get-started).
 
 ## Installation
 
